@@ -20,7 +20,7 @@ void
 JByteArraySetToBS(JNIEnv *env, jbyteArray ba, bs_t *bs);
 
 void
-BSSetToJByteArray(JNIEnv *env, bs_t* bs, jbyteArray *ba);
+BSSetToJByteArray(JNIEnv *env, bs_t* bs, jbyteArray ba);
 
 void RegisterNativeMethods(JNIEnv *env, const char *clazz, 
 	const JNINativeMethod* methods, uint32_t num);

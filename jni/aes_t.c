@@ -84,7 +84,7 @@ errno_t aes_setup_enckey(aes_t* aes, bs_t* key)
 errno_t aes_enc_buf(aes_t* aes, bs_t* p, bs_t* c)
 {
     uint32_t maxlen;
-    int64_t  rm;
+    int64_t  rm; // Number of remain bytes.
     byte_t   *pp, *pc, tmp[16];
 
 	LOGPOS();
@@ -95,9 +95,9 @@ errno_t aes_enc_buf(aes_t* aes, bs_t* p, bs_t* c)
     maxlen = (p->len/16+1+1)*16;
     bs_init(c, maxlen);
     
-    rm = p->len;
-    pp = p->data;
-    pc = c->data;
+    rm = p->len; // Remain Bytes
+    pp = p->data; // Pointer to Plain
+    pc = c->data; // Pointer to Cipher
 
     // encrypt the remain data.
     while (rm >= 16) {

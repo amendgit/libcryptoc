@@ -26,6 +26,9 @@ errno_t bs_init(bs_t* bs, uint32_t cap);
 // Copy the "bytes" and set to the byte string.
 errno_t bs_assign(bs_t* bs, byte_t* bytes, uint32_t len);
 
+// Copy func for byte string.
+errno_t bs_copy(bs_t *arg1, bs_t *arg2);
+
 // Cut the "bytes" and set to the byte string.
 void    bs_ref(bs_t *bs, byte_t* bytes, uint32_t len);
 

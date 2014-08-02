@@ -14,7 +14,7 @@ struct rc4_s
 
 rc4_t*  rc4_new(bs_t* key);
 
-errno_t rc4_xor(rc4_t* r, bs_t *src, bs_t *dst);
+void    rc4_xstream(rc4_t* r, bs_t *p, bs_t *c);
 
 void    rc4_reset(rc4_t* r);
 

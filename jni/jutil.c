@@ -42,8 +42,9 @@ void JByteArrayCopyToBS(JNIEnv *env, jbyteArray ba, bs_t *bs)
 	LOGPOS();
 
 	bs->len  = (*env)->GetArrayLength(env, ba);
-	bs->data = (byte_t*)malloc(bs->len * sizeof(byte_t));
+	bs->data = (byte_t*)malloc((bs->len + 1) * sizeof(byte_t));
 	(*env)->GetByteArrayRegion(env, ba, 0, bs->len, bs->data);
+	bs->data[bs->len] = '\0';
 }
 
 void JByteArraySetToBS(JNIEnv *env, jbyteArray ba, bs_t *bs)
@@ -68,11 +69,11 @@ void ReleaseJBASetToBS(JNIEnv *env, jbyteArray ba, bs_t *bs)
 	bs->len = 0;
 }
 
-void BSSetToJByteArray(JNIEnv *env, bs_t* bs, jbyteArray *ba)
+void BSSetToJByteArray(JNIEnv *env, bs_t* bs, jbyteArray ba)
 {
 	LOGPOS();
 
-	(*env)->SetByteArrayRegion(env, *ba, 0, bs->len, bs->data);
+	(*env)->SetByteArrayRegion(env, ba, 0, bs->len, bs->data);
 }
 
 void RegisterNativeMethods(JNIEnv *env, const char *clazz, 

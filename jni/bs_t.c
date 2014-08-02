@@ -9,7 +9,7 @@ bs_t* bs_new()
 
 	bs_t* new_bs = (bs_t*)malloc(sizeof(bs_t));
 	if (new_bs == NULL) {
-		LOGE("Error: Memory allocate error.");
+		LOGE("Error new bs.");
 		return NULL;
 	}
 
@@ -49,6 +49,7 @@ errno_t bs_assign(bs_t* bs, byte_t* bytes, uint32_t len)
 	LOGPOS();
 
 	if (len > CPT_LIMITMEM) {
+		LOGW("Error memory limit exceed.");
 		return CPT_ERROR;
 	}
 	
@@ -62,6 +63,12 @@ errno_t bs_assign(bs_t* bs, byte_t* bytes, uint32_t len)
 	bs->len = len;
 
 	return CPT_OK;
+}
+
+errno_t bs_copy(bs_t *arg1, bs_t *arg2)
+{
+	LOGPOS();
+	return bs_assign(arg1, arg2->data, arg2->len);
 }
 
 // Cut the "bytes" and set to the byte string.
@@ -150,10 +157,11 @@ void bs_destroy(bs_t* bs)
 {
 	LOGPOS();
 
-	if (bs != NULL) {
-		if (bs->data != NULL) {
-			free(bs->data);
-		}
-		free(bs);
-	}
+	if (bs == NULL) 
+		return ;
+
+	if (bs->data != NULL)
+		free(bs->data);
+
+	free(bs);
 }
